@@ -33,6 +33,11 @@ jobs:
               run: >
                   pytest .github/python_tests/test_problem_set_5.py::TestRecursiveSquares
                   -v --tb=short --no-header --color=yes -s
+            
+            - name: "Palindrome Checker"
+              run: >
+                  pytest .github/python_tests/test_problem_set_5.py::TestPalindromeChecker
+                  -v --tb=short --no-header --color=yes -s
 
     problem-2:
         name: "Problem 2 — Multiple Recursion"

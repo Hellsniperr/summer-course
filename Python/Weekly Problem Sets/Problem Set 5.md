@@ -33,9 +33,11 @@ As stated above, you should create a new branch and checkout that branch for thi
   - You only need to create the list using recursion, not the squares
 
 - **Palindrome checker**
-  - Given a string, check if it is a palindrome using recursion.  That is, is the string the same forwards and backwards.
+  - Given a string, check if it is a palindrome using recursion.  That is, is the string the same forwards and backwards, case insensitive.
   - Name your function `palindrome_checker`
   - For example, the input string `bacon` would return `False` while the string `radar` would return `True`.
+  - Note, for our purposes, an empty string is a palindrome.
+  - Note, for our purposes, punctuation and white space should be included.
 
 - **List length**
   - Given a list, determine the length of the list using recursion
