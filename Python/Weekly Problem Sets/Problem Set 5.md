@@ -94,49 +94,49 @@ As stated above, you should create a new branch and checkout that branch for thi
 
 ## Problem 3 — Basic HTTP Requests
 
-For this problem, you'll create functions that make HTTP requests using different methods (GET, POST, PUT, DELETE) to the ReqRes API. This is a mock REST API designed for testing that returns realistic responses. The base URL is `https://reqres.in/api`.
+For this problem, you'll create functions that make HTTP requests using different methods (GET, POST, PUT, DELETE) to the JSONPlaceholder API. This is a free fake REST API designed for testing that returns realistic responses. The base URL is `https://jsonplaceholder.typicode.com`.
 
-**Note:** ReqRes is a mock API - it doesn't actually persist changes, so every request gets a fresh dataset. This is perfect for testing!
+**Note:** JSONPlaceholder is a mock API - it doesn't actually persist changes, so every request gets a fresh dataset. This is perfect for testing!
 
 **Your task:**
 
 - **`get_user(user_id: int) -> dict`**
-  - Make a GET request to `https://reqres.in/api/users/{user_id}`
-  - Replace `{user_id}` with the provided user ID (1-12 are valid)
-  - The API returns JSON with format: `{"data": {...}}`
-  - Return the user dictionary from the `"data"` key
+  - Make a GET request to `https://jsonplaceholder.typicode.com/users/{user_id}`
+  - Replace `{user_id}` with the provided user ID (1-10 are valid)
+  - The API returns the user object directly as JSON (no nested "data" key)
+  - Return the entire user dictionary
   - If the request fails (status code is not 200), return an empty dictionary `{}`
-  - Example return: `{"id": 2, "email": "janet.weaver@reqres.in", "first_name": "Janet", "last_name": "Weaver", "avatar": "..."}`
+  - Example return: `{"id": 2, "name": "Ervin Howell", "username": "Antonette", "email": "Shanna@melissa.tv", ...}`
 
 - **`create_user(name: str, job: str) -> dict`**
-  - Make a POST request to `https://reqres.in/api/users`
+  - Make a POST request to `https://jsonplaceholder.typicode.com/users`
   - Send JSON data in the body: `{"name": name, "job": job}`
-  - See: [ReqRes API Examples](https://reqres.in/docs)
-  - The API returns JSON with the created user including `"id"`, `"name"`, `"job"`, and `"createdAt"` fields
+  - Hint: Use `requests.post(url, json={"name": name, "job": job})`
+  - The API returns JSON with the created user including an `"id"` field
   - Return the entire response dictionary
   - If the request fails (status code is not 201), return an empty dictionary `{}`
-  - Example return: `{"name": "John", "job": "Developer", "id": "123", "createdAt": "2026-06-26T12:34:56.789Z"}`
+  - Example return: `{"name": "John Doe", "job": "Developer", "id": 11}`
 
 - **`update_user(user_id: int, name: str, job: str) -> dict`**
-  - Make a PUT request to `https://reqres.in/api/users/{user_id}`
+  - Make a PUT request to `https://jsonplaceholder.typicode.com/users/{user_id}`
   - Send JSON data in the body: `{"name": name, "job": job}`
-  - See: [ReqRes API Examples](https://reqres.in/docs)
-  - The API returns JSON with the updated user including `"name"`, `"job"`, and `"updatedAt"` fields
+  - Hint: Use `requests.put(url, json={"name": name, "job": job})`
+  - The API returns JSON with the updated data including an `"id"` field
   - Return the entire response dictionary
   - If the request fails (status code is not 200), return an empty dictionary `{}`
-  - Example return: `{"name": "Jane", "job": "Manager", "updatedAt": "2026-06-26T12:34:56.789Z"}`
+  - Example return: `{"name": "Jane Smith", "job": "Manager", "id": 2}`
 
 - **`delete_user(user_id: int) -> bool`**
-  - Make a DELETE request to `https://reqres.in/api/users/{user_id}`
-  - See: [ReqRes API Examples](https://reqres.in/docs)
-  - The API returns status code 204 (No Content) for successful deletion
-  - Return `True` if status code is 204, otherwise return `False`
+  - Make a DELETE request to `https://jsonplaceholder.typicode.com/users/{user_id}`
+  - Hint: Use `requests.delete(url)`
+  - The API returns status code 200 for successful deletion
+  - Return `True` if status code is 200, otherwise return `False`
 
 **Example usage:**
 ```python
 # GET a user
 user = get_user(2)
-print(f"User: {user['first_name']} {user['last_name']}")
+print(f"User: {user['name']} ({user['email']})")
 
 # POST to create a user
 new_user = create_user("John Doe", "Developer")
@@ -155,7 +155,7 @@ print(f"Deleted: {success}")
 
 - **`get_users_page(page: int) -> list[dict]`**
   - Make a GET request to `https://reqres.in/api/users?page={page}`
-  - See: [ReqRes API Examples](https://reqres.in/docs)
+  - See: [ReqRes API - List Users](https://reqres.in/docs#get-api-users)
   - The API returns JSON with format: `{"page": 1, "data": [...]}`
   - Return the list of users from the `"data"` key
   - If the request fails or page is invalid, return an empty list `[]`
@@ -164,7 +164,7 @@ print(f"Deleted: {success}")
 - **`partial_update_user(user_id: int, updates: dict) -> dict`**
   - Make a PATCH request to `https://reqres.in/api/users/{user_id}`
   - Send the `updates` dictionary as JSON data in the body
-  - See: [ReqRes API Examples](https://reqres.in/docs)
+  - See: [ReqRes API - Patch](https://reqres.in/docs#patch-api-users-2)
   - PATCH is used for partial updates (unlike PUT which replaces the entire resource)
   - Return the entire response dictionary
   - If the request fails (status code is not 200), return an empty dictionary `{}`

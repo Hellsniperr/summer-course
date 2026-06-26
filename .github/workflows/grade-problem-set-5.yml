@@ -119,9 +119,9 @@ jobs:
                   pytest .github/python_tests/test_problem_set_5.py::TestDeleteUser
                   -v --tb=short --no-header --color=yes -s
 
-            - name: "Get Users Page (Challenge)"
+            - name: "Get All Users (Challenge)"
               run: >
-                  pytest .github/python_tests/test_problem_set_5.py::TestGetUsersPage
+                  pytest .github/python_tests/test_problem_set_5.py::TestGetAllUsers
                   -v --tb=short --no-header --color=yes -s
 
             - name: "PATCH Partial Update User (Challenge)"

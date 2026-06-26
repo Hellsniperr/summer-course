@@ -129,18 +129,17 @@ import requests
 
 
 def get_user(user_id: int) -> dict:
-    url = f"https://reqres.in/api/users/{user_id}"
+    url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
     response = requests.get(url)
 
     if response.status_code == 200:
-        data = response.json()
-        return data.get("data", {})
+        return response.json()
 
     return {}
 
 
 def create_user(name: str, job: str) -> dict:
-    url = "https://reqres.in/api/users"
+    url = "https://jsonplaceholder.typicode.com/users"
     response = requests.post(url, json={"name": name, "job": job})
 
     if response.status_code == 201:
@@ -150,7 +149,7 @@ def create_user(name: str, job: str) -> dict:
 
 
 def update_user(user_id: int, name: str, job: str) -> dict:
-    url = f"https://reqres.in/api/users/{user_id}"
+    url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
     response = requests.put(url, json={"name": name, "job": job})
 
     if response.status_code == 200:
@@ -160,26 +159,25 @@ def update_user(user_id: int, name: str, job: str) -> dict:
 
 
 def delete_user(user_id: int) -> bool:
-    url = f"https://reqres.in/api/users/{user_id}"
+    url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
     response = requests.delete(url)
 
-    return response.status_code == 204
+    return response.status_code == 200
 
 
 ## Challenge Problems
-def get_users_page(page: int) -> list[dict]:
-    url = f"https://reqres.in/api/users?page={page}"
+def get_all_users() -> list[dict]:
+    url = "https://jsonplaceholder.typicode.com/users"
     response = requests.get(url)
 
     if response.status_code == 200:
-        data = response.json()
-        return data.get("data", [])
+        return response.json()
 
     return []
 
 
 def partial_update_user(user_id: int, updates: dict) -> dict:
-    url = f"https://reqres.in/api/users/{user_id}"
+    url = f"https://jsonplaceholder.typicode.com/users/{user_id}"
     response = requests.patch(url, json=updates)
 
     if response.status_code == 200:
