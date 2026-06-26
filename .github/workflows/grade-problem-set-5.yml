@@ -99,9 +99,34 @@ jobs:
                   cache-dependency-path: ".github/python_tests/requirements.txt"
             - run: pip install -r .github/python_tests/requirements.txt
 
-            - name: "LyricAnalyzer class"
+            - name: "GET User"
               run: >
-                  pytest .github/python_tests/test_problem_set_5.py::TestLyricAnalyzerClass
+                  pytest .github/python_tests/test_problem_set_5.py::TestGetUser
+                  -v --tb=short --no-header --color=yes -s
+
+            - name: "POST Create User"
+              run: >
+                  pytest .github/python_tests/test_problem_set_5.py::TestCreateUser
+                  -v --tb=short --no-header --color=yes -s
+
+            - name: "PUT Update User"
+              run: >
+                  pytest .github/python_tests/test_problem_set_5.py::TestUpdateUser
+                  -v --tb=short --no-header --color=yes -s
+
+            - name: "DELETE User"
+              run: >
+                  pytest .github/python_tests/test_problem_set_5.py::TestDeleteUser
+                  -v --tb=short --no-header --color=yes -s
+
+            - name: "Get Users Page (Challenge)"
+              run: >
+                  pytest .github/python_tests/test_problem_set_5.py::TestGetUsersPage
+                  -v --tb=short --no-header --color=yes -s
+
+            - name: "PATCH Partial Update User (Challenge)"
+              run: >
+                  pytest .github/python_tests/test_problem_set_5.py::TestPartialUpdateUser
                   -v --tb=short --no-header --color=yes -s
 
     problem-4:

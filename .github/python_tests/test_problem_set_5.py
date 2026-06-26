@@ -604,3 +604,169 @@ class TestPermutations:
         finally:
             # Restore the original function
             student.permutations = original_func
+
+
+# ===========================================================================
+# Problem 3
+# ===========================================================================
+class TestGetUser:
+    """Tests for problem 3, get_user function"""
+
+    def test_get_user_exists(self, student):
+        assert_has_function(student, "get_user")
+
+    def test_get_user_valid(self, student):
+        user = student.get_user(2)
+        assert isinstance(user, dict), "get_user should return a dictionary"
+        assert "id" in user, "User should have an 'id' field"
+        assert user["id"] == 2, "User ID should match the requested ID"
+        assert "email" in user, "User should have an 'email' field"
+        assert "first_name" in user, "User should have a 'first_name' field"
+        assert "last_name" in user, "User should have a 'last_name' field"
+
+    def test_get_user_multiple(self, student):
+        """Test multiple valid user IDs"""
+        for user_id in [1, 3, 5]:
+            user = student.get_user(user_id)
+            assert isinstance(user, dict), f"get_user({user_id}) should return a dictionary"
+            assert user.get("id") == user_id, f"User ID should be {user_id}"
+
+    def test_get_user_invalid(self, student):
+        """Test invalid user ID returns empty dict"""
+        user = student.get_user(999)
+        assert user == {}, "get_user with invalid ID should return empty dictionary"
+
+
+class TestCreateUser:
+    """Tests for problem 3, create_user function"""
+
+    def test_create_user_exists(self, student):
+        assert_has_function(student, "create_user")
+
+    def test_create_user_basic(self, student):
+        result = student.create_user("John Doe", "Developer")
+        assert isinstance(result, dict), "create_user should return a dictionary"
+        assert "name" in result, "Result should have a 'name' field"
+        assert result["name"] == "John Doe", "Name should match the input"
+        assert "job" in result, "Result should have a 'job' field"
+        assert result["job"] == "Developer", "Job should match the input"
+        assert "id" in result, "Result should have an 'id' field"
+        assert "createdAt" in result, "Result should have a 'createdAt' field"
+
+    def test_create_user_different_data(self, student):
+        """Test creating users with different data"""
+        test_cases = [
+            ("Alice Smith", "Designer"),
+            ("Bob Johnson", "Manager"),
+            ("Carol White", "Engineer"),
+        ]
+        for name, job in test_cases:
+            result = student.create_user(name, job)
+            assert result["name"] == name, f"Name should be {name}"
+            assert result["job"] == job, f"Job should be {job}"
+
+
+class TestUpdateUser:
+    """Tests for problem 3, update_user function"""
+
+    def test_update_user_exists(self, student):
+        assert_has_function(student, "update_user")
+
+    def test_update_user_basic(self, student):
+        result = student.update_user(2, "Jane Smith", "Manager")
+        assert isinstance(result, dict), "update_user should return a dictionary"
+        assert "name" in result, "Result should have a 'name' field"
+        assert result["name"] == "Jane Smith", "Name should match the input"
+        assert "job" in result, "Result should have a 'job' field"
+        assert result["job"] == "Manager", "Job should match the input"
+        assert "updatedAt" in result, "Result should have an 'updatedAt' field"
+
+    def test_update_user_multiple(self, student):
+        """Test updating different users"""
+        for user_id in [1, 3, 5]:
+            result = student.update_user(user_id, "Test User", "Tester")
+            assert isinstance(result, dict), f"update_user({user_id}) should return a dictionary"
+            assert result["name"] == "Test User", "Name should be updated"
+            assert result["job"] == "Tester", "Job should be updated"
+
+
+class TestDeleteUser:
+    """Tests for problem 3, delete_user function"""
+
+    def test_delete_user_exists(self, student):
+        assert_has_function(student, "delete_user")
+
+    def test_delete_user_valid(self, student):
+        result = student.delete_user(2)
+        assert isinstance(result, bool), "delete_user should return a boolean"
+        assert result == True, "delete_user should return True for successful deletion"
+
+    def test_delete_user_multiple(self, student):
+        """Test deleting multiple users"""
+        for user_id in [1, 3, 5, 10]:
+            result = student.delete_user(user_id)
+            assert result == True, f"delete_user({user_id}) should return True"
+
+
+@pytest.mark.challenge
+class TestGetUsersPage:
+    """Tests for problem 3, get_users_page function (challenge)"""
+
+    def test_get_users_page_exists(self, student):
+        assert_has_function(student, "get_users_page")
+
+    def test_get_users_page_one(self, student):
+        users = student.get_users_page(1)
+        assert isinstance(users, list), "get_users_page should return a list"
+        assert len(users) > 0, "Page 1 should have users"
+        assert len(users) == 6, "Page 1 should have 6 users"
+        # Check that users are dictionaries with expected fields
+        assert all("id" in user for user in users), "All users should have 'id' field"
+        assert all("email" in user for user in users), "All users should have 'email' field"
+
+    def test_get_users_page_two(self, student):
+        users = student.get_users_page(2)
+        assert isinstance(users, list), "get_users_page should return a list"
+        assert len(users) > 0, "Page 2 should have users"
+        assert len(users) == 6, "Page 2 should have 6 users"
+
+    def test_get_users_page_invalid(self, student):
+        """Test invalid page number returns empty list"""
+        users = student.get_users_page(999)
+        assert users == [], "Invalid page should return empty list"
+
+
+@pytest.mark.challenge
+class TestPartialUpdateUser:
+    """Tests for problem 3, partial_update_user function (challenge)"""
+
+    def test_partial_update_user_exists(self, student):
+        assert_has_function(student, "partial_update_user")
+
+    def test_partial_update_single_field(self, student):
+        result = student.partial_update_user(2, {"job": "Senior Developer"})
+        assert isinstance(result, dict), "partial_update_user should return a dictionary"
+        assert "job" in result, "Result should have a 'job' field"
+        assert result["job"] == "Senior Developer", "Job should be updated"
+        assert "updatedAt" in result, "Result should have an 'updatedAt' field"
+
+    def test_partial_update_multiple_fields(self, student):
+        updates = {"name": "John Smith", "job": "Team Lead"}
+        result = student.partial_update_user(3, updates)
+        assert isinstance(result, dict), "partial_update_user should return a dictionary"
+        assert result["name"] == "John Smith", "Name should be updated"
+        assert result["job"] == "Team Lead", "Job should be updated"
+
+    def test_partial_update_different_users(self, student):
+        """Test partial updates on different users"""
+        for user_id in [1, 4, 7]:
+            result = student.partial_update_user(user_id, {"job": "Updated Job"})
+            assert isinstance(
+                result, dict
+            ), f"partial_update_user({user_id}) should return a dictionary"
+            assert result["job"] == "Updated Job", "Job should be updated"
+
+
+# ===========================================================================
+# Problem 4
+# ===========================================================================

@@ -125,3 +125,64 @@ def permutations(lst: list) -> list[list]:
 
 
 # ── Problem 3 ─────────────────────────────────────────────────────────────────
+import requests
+
+
+def get_user(user_id: int) -> dict:
+    url = f"https://reqres.in/api/users/{user_id}"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        return data.get("data", {})
+
+    return {}
+
+
+def create_user(name: str, job: str) -> dict:
+    url = "https://reqres.in/api/users"
+    response = requests.post(url, json={"name": name, "job": job})
+
+    if response.status_code == 201:
+        return response.json()
+
+    return {}
+
+
+def update_user(user_id: int, name: str, job: str) -> dict:
+    url = f"https://reqres.in/api/users/{user_id}"
+    response = requests.put(url, json={"name": name, "job": job})
+
+    if response.status_code == 200:
+        return response.json()
+
+    return {}
+
+
+def delete_user(user_id: int) -> bool:
+    url = f"https://reqres.in/api/users/{user_id}"
+    response = requests.delete(url)
+
+    return response.status_code == 204
+
+
+## Challenge Problems
+def get_users_page(page: int) -> list[dict]:
+    url = f"https://reqres.in/api/users?page={page}"
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        data = response.json()
+        return data.get("data", [])
+
+    return []
+
+
+def partial_update_user(user_id: int, updates: dict) -> dict:
+    url = f"https://reqres.in/api/users/{user_id}"
+    response = requests.patch(url, json=updates)
+
+    if response.status_code == 200:
+        return response.json()
+
+    return {}

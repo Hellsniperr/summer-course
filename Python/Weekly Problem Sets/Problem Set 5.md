@@ -94,8 +94,80 @@ As stated above, you should create a new branch and checkout that branch for thi
 
 ## Problem 3 — Basic HTTP Requests
 
+For this problem, you'll create functions that make HTTP requests using different methods (GET, POST, PUT, DELETE) to the ReqRes API. This is a mock REST API designed for testing that returns realistic responses. The base URL is `https://reqres.in/api`.
+
+**Note:** ReqRes is a mock API - it doesn't actually persist changes, so every request gets a fresh dataset. This is perfect for testing!
+
+**Your task:**
+
+- **`get_user(user_id: int) -> dict`**
+  - Make a GET request to `https://reqres.in/api/users/{user_id}`
+  - Replace `{user_id}` with the provided user ID (1-12 are valid)
+  - The API returns JSON with format: `{"data": {...}}`
+  - Return the user dictionary from the `"data"` key
+  - If the request fails (status code is not 200), return an empty dictionary `{}`
+  - Example return: `{"id": 2, "email": "janet.weaver@reqres.in", "first_name": "Janet", "last_name": "Weaver", "avatar": "..."}`
+
+- **`create_user(name: str, job: str) -> dict`**
+  - Make a POST request to `https://reqres.in/api/users`
+  - Send JSON data in the body: `{"name": name, "job": job}`
+  - Hint: Use `requests.post(url, json={"name": name, "job": job})`
+  - The API returns JSON with the created user including `"id"`, `"name"`, `"job"`, and `"createdAt"` fields
+  - Return the entire response dictionary
+  - If the request fails (status code is not 201), return an empty dictionary `{}`
+  - Example return: `{"name": "John", "job": "Developer", "id": "123", "createdAt": "2026-06-26T12:34:56.789Z"}`
+
+- **`update_user(user_id: int, name: str, job: str) -> dict`**
+  - Make a PUT request to `https://reqres.in/api/users/{user_id}`
+  - Send JSON data in the body: `{"name": name, "job": job}`
+  - Hint: Use `requests.put(url, json={"name": name, "job": job})`
+  - The API returns JSON with the updated user including `"name"`, `"job"`, and `"updatedAt"` fields
+  - Return the entire response dictionary
+  - If the request fails (status code is not 200), return an empty dictionary `{}`
+  - Example return: `{"name": "Jane", "job": "Manager", "updatedAt": "2026-06-26T12:34:56.789Z"}`
+
+- **`delete_user(user_id: int) -> bool`**
+  - Make a DELETE request to `https://reqres.in/api/users/{user_id}`
+  - Hint: Use `requests.delete(url)`
+  - The API returns status code 204 (No Content) for successful deletion
+  - Return `True` if status code is 204, otherwise return `False`
+
+**Example usage:**
+```python
+# GET a user
+user = get_user(2)
+print(f"User: {user['first_name']} {user['last_name']}")
+
+# POST to create a user
+new_user = create_user("John Doe", "Developer")
+print(f"Created user with ID: {new_user['id']}")
+
+# PUT to update a user
+updated = update_user(2, "Jane Smith", "Manager")
+print(f"Updated: {updated}")
+
+# DELETE a user
+success = delete_user(2)
+print(f"Deleted: {success}")
+```
 
 ### Challenge
+
+- **`get_users_page(page: int) -> list[dict]`**
+  - Make a GET request to `https://reqres.in/api/users?page={page}`
+  - The API returns JSON with format: `{"page": 1, "data": [...]}`
+  - Return the list of users from the `"data"` key
+  - If the request fails or page is invalid, return an empty list `[]`
+  - Valid pages are 1-2 (each page has 6 users)
+
+- **`partial_update_user(user_id: int, updates: dict) -> dict`**
+  - Make a PATCH request to `https://reqres.in/api/users/{user_id}`
+  - Send the `updates` dictionary as JSON data in the body
+  - Hint: Use `requests.patch(url, json=updates)`
+  - PATCH is used for partial updates (unlike PUT which replaces the entire resource)
+  - Return the entire response dictionary
+  - If the request fails (status code is not 200), return an empty dictionary `{}`
+  - Example: `partial_update_user(2, {"job": "Senior Developer"})` updates only the job field
 
 
 ---
