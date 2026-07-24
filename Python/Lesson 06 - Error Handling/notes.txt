@@ -1,0 +1,4 @@
+try, except, else, finally
+    error handling methods.
+
+try and except are the only ones required
