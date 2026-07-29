@@ -74,32 +74,32 @@ print(dbl_tuple(my_tup))
 
 # Rewrite the pop, count, extend, reverse, and sort functions
 
-def my_pop(in_list):
-    new_val = in_list[index]
-    del in_list[index]
-    return new_val
+# def my_pop(in_list):
+#     new_val = in_list[index]
+#     del in_list[index]
+#     return new_val
 
 
-def my_len(in_list):
-    len = 0
-    for elem in in_list:
-        len += 1
-    return len
+# def my_len(in_list):
+#     len = 0
+#     for elem in in_list:
+#         len += 1
+#     return len
 
-def my_count(in_list, obj):
-    count = 0
+# def my_count(in_list, obj):
+#     count = 0
     
     
     
-def my_extend(in_list, other_lst):
-    for elem in other_lst:
-        in_list.append(elem)
+# def my_extend(in_list, other_lst):
+#     for elem in other_lst:
+#         in_list.append(elem)
         
-def my_reverse(in_list):
-    reversed = []
-    for elem in in_list[::-1]:
-        reversed.append(elem)
-    return reversed
+# def my_reverse(in_list):
+#     reversed = []
+#     for elem in in_list[::-1]:
+#         reversed.append(elem)
+#     return reversed
 # Return the results in a new list and do not modify the original list
 
 # (do not use the function you are rewriting)
