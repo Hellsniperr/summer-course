@@ -1,27 +1,33 @@
 import requests
-address = "https://jsonplaceholder.typicode.com"
-r = requests.get(address)
+# address = "https://jsonplaceholder.typicode.com"
+# response = requests.get(address)
 
-# print(r)
+# # print(response)
 
-print(r.elapsed)
+# print(response.elapsed)
 
-# 2
+# # 2
 
-r = requests.get(f'{address}/posts/1')
+# response = requests.get(f'{address}/posts/1')
 
-r.status_code
-r.reason
-r.raw
-r.json()
-type(r)
-r.elapsed
-dir(r)
-r.headers
-r.headers['Content-Type']
+# response.status_code
+# response.reason
+# response.raw
+# response.json()
+# type(rresponse)
+# response.elapsed
+# dir(response)
+# response.headers
+# response.headers['Content-Type']
 
-#3  
+# HO 2 
 
-r.content
-r.headers
+address = "https://httpbin.org"
+
+
+url = "- `https://httpbin.org/basic-auth/student/pass123"
+credentials = {"user": "psswd"}
+
+response = requests.get(url, auth=("student", "pass123"), json=credentials)
+
 
