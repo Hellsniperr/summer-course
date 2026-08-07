@@ -12,18 +12,16 @@ These exercises will help you learn to automatically format Python code using to
     - [Exercise 5: Format and Lint as a Pre-Commit Hook](#exercise-5-format-and-lint-as-a-pre-commit-hook)
     - [Exercise 6: Add More Tools to Pre-Commit](#exercise-6-add-more-tools-to-pre-commit)
 
-
 ---
 
 ## Hands-On #1
 
 ### Exercise 0:
 
-1. Clone the following repository:  https://github.com/shafe123/AI2C-python-formatting.git
+1. Clone the following repository:  
+2. Open the new repository as a folder in VS Code.
+3. Install prerequisites via the terminal. (Optional, setup a virtual environment beforehand)
 
-1. Open the new repository as a folder in VS Code.
-
-1. Install prerequisites via the terminal. (Optional, setup a virtual environment beforehand)
 ```bash
 pip install black pylint pre-commit
 ```
@@ -33,7 +31,6 @@ pip install black pylint pre-commit
 **Goal**: Use `black` to autoformat an unformatted Python script.
 
 1. Install black by running the following command.
-
 2. Look at the file called `messy.py`, it should resemble the following:
 
 ```python
@@ -88,9 +85,7 @@ greet("world")
 **Goal**: Set up autoformatting and linting with `pre-commit` hooks.
 
 1. Create a `.pre-commit-config.yaml` file with a configuration that includes the black formatter and mypy for type checking.
-
 2. Install and run the pre-commit hooks. Note the output of the command.
-
 3. Run the hooks again, did the output change?
 
 ✅ *Check*: Try committing and ensure that the files are formatted and checked before committing.
@@ -106,12 +101,12 @@ greet("world")
 **Goal**: Enhance your pre-commit workflow by adding additional code quality tools.
 
 1. Update your `.pre-commit-config.yaml` to include more hooks, such as `isort` (for import sorting), `docformatter` (for docstring formatting), and other useful tools like:
+
    - `mypy` for type checking
    - `bandit` for security checks
    - `trailing-whitespace` and `end-of-file-fixer` from pre-commit-hooks
    - `check-yaml` and `check-json` for file validation
    - `codespell` for spelling checks
-
 2. Reinstall the hooks to update them.
 
 ✅ *Check*: Try committing again. Now, in addition to formatting and linting, your code will be checked for types, security issues, spelling, trailing whitespace, and more.
