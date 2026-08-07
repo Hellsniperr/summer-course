@@ -82,7 +82,10 @@ class TestBook:
         book.checkout()
         assert book.available_copies() == 3
 
-
+    def test_validate_isbn10(self):
+        assert validate_isbn("some_val") == False
+        
+        
 # Note: The following functions have NO tests yet (0% coverage):
 # - validate_isbn()
 # - format_book_info()
